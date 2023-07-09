@@ -1,24 +1,22 @@
 # frozen_string_literal: true
-source "https://rubygems.org"
 
-ruby "~> 3.2.2"
+source 'https://rubygems.org'
 
-gem "sinatra"
-gem "puma"
+ruby '~> 3.2.2'
 
-if RUBY_PLATFORM.match?(/win32/)
-  gem "eventmachine", "~> 1.0.0.beta.4.1"
-end
+gem 'puma'
+gem 'sinatra'
+
+gem 'eventmachine', '~> 1.0.0.beta.4.1' if RUBY_PLATFORM.match?(/win32/)
 
 group :test do
-  gem "rspec"
-  gem "rack-test"
-  gem "timecop", "~> 0.9.6"
+  gem 'rack-test'
+  gem 'rspec'
   gem 'rubocop', require: false
+  gem 'timecop', '~> 0.9.6'
 end
 
 group :development do
-  gem "rake"
-  gem "pry"
+  gem 'pry'
+  gem 'rake'
 end
-

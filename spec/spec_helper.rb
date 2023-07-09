@@ -1,11 +1,13 @@
-require "rack/test"
-require "rspec"
-require "timecop"
-require "pry"
+# frozen_string_literal: true
 
-ENV["RACK_ENV"] = "test"
+require 'rack/test'
+require 'rspec'
+require 'timecop'
+require 'pry'
 
-require File.expand_path "../../moon_api.rb", __FILE__
+ENV['RACK_ENV'] = 'test'
+
+require File.expand_path '../moon_api.rb', __dir__
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods

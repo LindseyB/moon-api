@@ -8,7 +8,7 @@ Bundler.require
 class MoonApi < Sinatra::Base
   helpers do
     def halt_with_404_not_found
-      halt 404, { message: "Not found" }.to_json
+      halt 404, { message: 'Not found' }.to_json
     end
   end
 
