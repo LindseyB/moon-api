@@ -6,6 +6,7 @@
 # Ruby version based on JavaScript Phase Calculator by Stephen R. Schmitt
 # And then stolen from https://gist.github.com/nofxx/178257
 class Moon
+  class InvalidPhase < StandardError; end
 
   ASSOCIATIONS = {
     new: 'new beginnings',
@@ -31,7 +32,7 @@ class Moon
   #   emoji    => Emoji representation of the moon
   def initialize(epoch: Time.now, phase: nil)
     if phase
-      @phase = phase
+      ASSOCIATIONS.key?(phase) ? @phase = phase : raise(InvalidPhase)
     else
       @epoch = epoch
       do_calc

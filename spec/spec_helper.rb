@@ -1,5 +1,7 @@
 require "rack/test"
 require "rspec"
+require "timecop"
+require "pry"
 
 ENV["RACK_ENV"] = "test"
 

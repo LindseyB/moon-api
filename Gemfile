@@ -13,9 +13,11 @@ end
 group :test do
   gem "rspec"
   gem "rack-test"
+  gem "timecop", "~> 0.9.6"
 end
 
 group :development do
   gem "rake"
   gem "pry"
 end
+
