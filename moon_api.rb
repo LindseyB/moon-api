@@ -5,6 +5,7 @@ require_relative 'moon'
 
 Bundler.require
 
+# The MoonApi class is a Sinatra app that provides a RESTful API for the Moon
 class MoonApi < Sinatra::Base
   helpers do
     def halt_with_404_not_found

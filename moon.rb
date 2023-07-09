@@ -78,6 +78,7 @@ class Moon
     end
   end
 
+  # rubocop:disable Lint/AmbiguousOperatorPrecedence
   def calc_coords(inter, phase)
     phase = phase * 2 * Math::PI
     dp = 2 * Math::PI * normalize((inter -  2_451_562.2) / 27.55454988)
@@ -109,6 +110,7 @@ class Moon
     @phase = calc_phase(@icon)
     calc_coords(inter, phase)
   end
+  # rubocop:enable Lint/AmbiguousOperatorPrecedence
 
   def normalize(x)
     x %= 1
