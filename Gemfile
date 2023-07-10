@@ -13,7 +13,7 @@ group :test do
   gem 'rack-test'
   gem 'rspec'
   gem 'rubocop', require: false
-  gem 'timecop', '~> 0.9.6'
+  gem 'timecop'
 end
 
 group :development do
