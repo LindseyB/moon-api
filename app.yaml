@@ -1,0 +1,2 @@
+runtime: ruby32
+entrypoint: bundle exec rackup -p $PORT
