@@ -76,7 +76,6 @@ class Moon
     when 17..20  then :waning_gibbous
     when 21..24  then :last_quarter
     when 25..28  then :waning_crescent
-    else :new
     end
   end
 
