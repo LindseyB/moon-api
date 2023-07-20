@@ -20,6 +20,17 @@ class Moon
     waning_crescent: 'resting'
   }.freeze
 
+  EMOJI = {
+    new: '🌑',
+    waxing_crescent: '🌒',
+    first_quarter: '🌓',
+    waxing_gibbous: '🌔',
+    full: '🌕',
+    waning_gibbous: '🌖',
+    last_quarter: '🌗',
+    waning_crescent: '🌘'
+  }.freeze
+
   attr_reader :epoch, :phase, :days, :icon
 
   # Return the current (or input a date, or input a phase) moon.
@@ -41,16 +52,7 @@ class Moon
   end
 
   def emoji
-    case @phase
-    when :new then '🌑'
-    when :waxing_crescent then '🌒'
-    when :first_quarter then '🌓'
-    when :waxing_gibbous then '🌔'
-    when :full then '🌕'
-    when :waning_gibbous then '🌖'
-    when :last_quarter then '🌗'
-    when :waning_crescent then '🌘'
-    end
+    EMOJI[@phase]
   end
 
   def to_json(*_args)

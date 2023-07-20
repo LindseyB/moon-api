@@ -12,8 +12,3 @@ Lint/DuplicateBranch:
   Exclude:
     - 'moon.rb'
 
-# Offense count: 1
-# Configuration parameters: MinBranchesCount.
-Style/HashLikeCase:
-  Exclude:
-    - 'moon.rb'
