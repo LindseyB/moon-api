@@ -79,17 +79,16 @@ class Moon
     end
   end
 
-  # rubocop:disable Lint/AmbiguousOperatorPrecedence
   def calc_coords(inter, phase)
     phase = phase * 2 * Math::PI
-    dp = 2 * Math::PI * normalize((inter -  2_451_562.2) / 27.55454988)
-    @dist = 60.4 - 3.3 * Math.cos(dp) - 0.6 * Math.cos(2 * phase - dp) - 0.5 * Math.cos(2 * phase)
+    dp = 2 * Math::PI * normalize((inter - 2_451_562.2) / 27.55454988)
+    @dist = 60.4 - (3.3 * Math.cos(dp)) - (0.6 * Math.cos((2 * phase) - dp)) - (0.5 * Math.cos(2 * phase))
 
     np = 2 * Math::PI * normalize((inter - 2_451_565.2) / 27.212220817)
     la = 5.1 * Math.sin(np)
 
     rp = normalize((inter - 2_451_555.8) / 27.321582241)
-    lo = 360 * rp + 6.3 * Math.sin(dp) + 1.3 * Math.sin(2 * phase - dp) + 0.7 * Math.sin(2 * phase)
+    lo = (360 * rp) + (6.3 * Math.sin(dp)) + (1.3 * Math.sin((2 * phase) - dp)) + (0.7 * Math.sin(2 * phase))
     @ll = [la, lo]
   end
 
@@ -99,7 +98,7 @@ class Moon
     t_month = (@epoch.month + 9) % 12
 
     t1 = (365.25 * (t_year + 4712)).to_i
-    t2 = (30.6 * t_month + 0.5).to_i
+    t2 = ((30.6 * t_month) + 0.5).to_i
     t3 = (((t_year / 100.0) + 49.0) * 0.75).to_i - 38
     inter = t1 + t2 + @epoch.day + 59
     inter -= t3 if inter > 2_299_160
@@ -111,7 +110,6 @@ class Moon
     @phase = calc_phase(@icon)
     calc_coords(inter, phase)
   end
-  # rubocop:enable Lint/AmbiguousOperatorPrecedence
 
   def normalize(x)
     x %= 1
