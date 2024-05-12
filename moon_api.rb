@@ -29,6 +29,15 @@ class MoonApi < Sinatra::Base
     halt_with_404_not_found
   end
 
+  # Returns all the moon phases
+  get '/phases' do
+    phases = []
+    Moon::ASSOCIATIONS.keys.map do |phase|
+      phases << Moon.new(phase:)
+    end
+    phases.to_json
+  end
+
   # Return the moon phase for a specific date as a unix epoch timestamp
   get '/date/(:date)' do
     # Just check if it's a series of digits
