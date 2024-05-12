@@ -9,8 +9,8 @@ describe 'MoonApi' do
 
   describe '/' do
     it 'returns the current moon phase' do
-      new_time = Time.local(2008, 9, 1, 12, 0, 0)
-      Timecop.freeze(new_time) { get '/' }
+      waxing_crescent_time = Time.local(2008, 9, 1, 12, 0, 0)
+      Timecop.freeze(waxing_crescent_time) { get '/' }
 
       expect(last_response).to be_ok
       body = JSON.parse(last_response.body)
@@ -19,6 +19,16 @@ describe 'MoonApi' do
       expect(body['days']).to eq 1
       expect(body['emoji']).to eq '🌒'
       expect(body['association']).to eq 'setting intentions'
+    end
+  end
+
+  describe '/favicon.ico' do
+    it "redirects to the current moon phase's favicon" do
+      waxing_crescent_time = Time.local(2008, 9, 1, 12, 0, 0)
+      Timecop.freeze(waxing_crescent_time) { get '/favicon.ico' }
+
+      expect(last_response).to be_redirect
+      expect(last_response.headers['Location'].end_with?('/waxing_crescent.ico')).to be true
     end
   end
 

@@ -22,6 +22,11 @@ class MoonApi < Sinatra::Base
     Moon.new.to_json
   end
 
+  get '/favicon.ico' do
+    # set favicon to the current moon phase
+    redirect to "/#{Moon.new.phase}.ico"
+  end
+
   # Return the details of a specific moon phase
   get '/phases/(:phase)' do
     Moon.new(phase: params[:phase].downcase.to_sym).to_json
