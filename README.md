@@ -2,17 +2,17 @@
 
 ## Requests 
 
-`GET /` [[run]](http://moon-api.co)
+`GET /` [[run]](https://moon-api.co)
 
 Returns the current moonphase
 
-`GET /phases/[phase]` [[run]](http://moon-api.co/phases/new)
+`GET /phases/[phase]` [[run]](https://moon-api.co/phases/new)
 
 Possible phases: `new`, `waxing_crescent`, `first_quarter`, `waxing_gibbous`, `full`, `waning_gibbous`, `last_quarter`, `waning_crescent`
 
 Returns the information for the specified phase
 
-`GET /date/[unix timestamp]` [[run]](http://moon-api.co/date/1689859150)
+`GET /date/[unix timestamp]` [[run]](https://moon-api.co/date/1689859150)
 
 Returns the phase for the given date
 
@@ -25,7 +25,7 @@ Returns the phase for the given date
 | emoji                | emoji            | one of 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘                                                                 |
 | association          | string           | magical association for this phase                                                          |
 
-`GET /phases` [[run]](http://moon-api.co/phases)
+`GET /phases` [[run]](https://moon-api.co/phases)
 
 Returns an array of all the possible phases of the moon and associated data. 
 
