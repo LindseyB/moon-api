@@ -54,6 +54,21 @@ describe 'MoonApi' do
     end
   end
 
+  describe '/phases' do
+    it 'returns all the moon phases' do
+      get '/phases'
+
+      expect(last_response).to be_ok
+      body = JSON.parse(last_response.body)
+
+      expect(body.length).to eq 8
+      expect(body[0]['phase']).to eq 'new'
+      expect(body[0]['days']).to eq 0
+      expect(body[0]['emoji']).to eq '🌑'
+      expect(body[0]['association']).to eq 'new beginnings'
+    end
+  end
+
   describe '/date/:date' do
     it 'returns the moon phase for a specific date' do
       get '/date/1535750400'
