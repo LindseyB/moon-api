@@ -25,6 +25,9 @@ Returns the phase for the given date
 | emoji                | emoji            | one of 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘                                                                 |
 | association          | string           | magical association for this phase                                                          |
 
+`GET /phases` [[run]](http://moon-api.co/phases)
+
+Returns an array of all the possible phases of the moon and associated data. 
 
 ### Example payload
 
