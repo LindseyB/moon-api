@@ -5,6 +5,18 @@ require_relative 'moon'
 
 Bundler.require
 
+# Enable CORS for all origins
+before do
+  response.headers['Access-Control-Allow-Origin'] = '*'
+  response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+  response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, Accept'
+end
+
+# Handle preflight requests
+options '*' do
+  200
+end
+
 # The MoonApi class is a Sinatra app that provides a RESTful API for the Moon
 class MoonApi < Sinatra::Base
   helpers do
