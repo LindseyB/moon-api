@@ -22,11 +22,16 @@ class MoonApi < Sinatra::Base
   end
 
   before do
-    content_type :json unless request.request_method == 'OPTIONS'
+    # content_type :json unless request.request_method == 'OPTIONS'
   end
 
   # Return the current moon phase
-  get '/' do
+  get '/:format?' do
+    Moon.new.to_json
+  end
+
+  get '/current:format?' do
+    # Return the current moon phase
     Moon.new.to_json
   end
 
@@ -36,14 +41,14 @@ class MoonApi < Sinatra::Base
   end
 
   # Return the details of a specific moon phase
-  get '/phases/(:phase)' do
+  get '/phases/(:phase):format?' do
     Moon.new(phase: params[:phase].downcase.to_sym).to_json
   rescue Moon::InvalidPhase
     halt_with_404_not_found
   end
 
   # Returns all the moon phases
-  get '/phases' do
+  get '/phases:format?' do
     phases = []
     Moon::ASSOCIATIONS.keys.map do |phase|
       phases << Moon.new(phase:)
@@ -52,7 +57,7 @@ class MoonApi < Sinatra::Base
   end
 
   # Return the moon phase for a specific date as a unix epoch timestamp
-  get '/date/(:date)' do
+  get '/date/(:date):format?' do
     # Just check if it's a series of digits
     if params[:date].match?(/\d+/)
       Moon.new(epoch: Time.at(params[:date].to_i)).to_json
