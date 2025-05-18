@@ -22,7 +22,9 @@ class MoonApi < Sinatra::Base
   end
 
   before do
-    # content_type :json unless request.request_method == 'OPTIONS'
+    if request.accept.any? { |type| type.to_s == 'application/json' } && request.request_method != 'OPTIONS'
+      content_type :json
+    end
   end
 
   # Return the current moon phase
