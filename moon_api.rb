@@ -22,7 +22,7 @@ class MoonApi < Sinatra::Base
   end
 
   before do
-    content_type :json
+    # content_type :json
   end
 
   # Return the current moon phase
