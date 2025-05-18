@@ -56,8 +56,4 @@ Returns an array of all the possible phases of the moon and associated data.
 
 ## Deploying
 
-  ```bash
-  gcloud config set project moon-api-392403  # set the correct project
-  gcloud app deploy                          # deploy the app
-  gcloud app logs tail -s default            # tail the logs to make sure things are gucci
-  ```
+Deploying is just merging now that I'm hosting on [Render](https://render.com/), worth it IMO to keep the APP patched and live without having to write my own deployment pipeline for a hobby app. 
