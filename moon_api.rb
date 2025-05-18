@@ -7,13 +7,7 @@ Bundler.require
 
 # The MoonApi class is a Sinatra app that provides a RESTful API for the Moon
 class MoonApi < Sinatra::Base
-  # Handle preflight requests
-  options '*' do
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, Accept'
-    200
-  end
+  set :protection, except: :json_csrf
 
   helpers do
     def halt_with_404_not_found
@@ -22,9 +16,7 @@ class MoonApi < Sinatra::Base
   end
 
   before do
-    if request.accept.any? { |type| type.to_s == 'application/json' } && request.request_method != 'OPTIONS'
-      content_type :json
-    end
+    content_type :json
   end
 
   # Return the current moon phase
