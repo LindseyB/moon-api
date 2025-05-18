@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 ruby '~> 3.2.2'
 
 gem 'puma'
+gem 'rack'
+gem 'rackup'
 gem 'sinatra'
 
 gem 'eventmachine', '~> 1.0.0.beta.4.1' if RUBY_PLATFORM.match?(/win32/)
