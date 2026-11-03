@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'astronoby'
+
 #
 # Lunar/Moon phases ruby class
 #
@@ -31,7 +33,21 @@ class Moon
     waning_crescent: '🌘'
   }.freeze
 
+  # Tropical zodiac, in order, each spanning 30° of ecliptic longitude from 0° Aries
+  ZODIAC_SIGNS = %i[
+    aries taurus gemini cancer leo virgo
+    libra scorpio sagittarius capricorn aquarius pisces
+  ].freeze
+
+  # Excerpt of NASA JPL's DE440s ephemeris (Sun, Earth, Moon) covering 1970-2100.
+  # Regenerate with `bundle exec rake ephemeris`.
+  EPHEMERIS_PATH = File.expand_path('data/moon_ephemeris.bsp', __dir__)
+
   attr_reader :epoch, :phase, :days, :icon
+
+  def self.ephemeris
+    @ephemeris ||= Astronoby::Ephem.load(EPHEMERIS_PATH)
+  end
 
   # Return the current (or input a date, or input a phase) moon.
   #   Moon.new
@@ -39,9 +55,10 @@ class Moon
   #   Moon.new(phase: :new)
   #
   # Methods available:
-  #   phase    => Phase of the moon as a sym
-  #   days     => Moon days
-  #   emoji    => Emoji representation of the moon
+  #   phase        => Phase of the moon as a sym
+  #   days         => Moon days
+  #   emoji        => Emoji representation of the moon
+  #   zodiac_sign  => Tropical zodiac sign the moon is in as a sym (nil for phase-only moons)
   def initialize(epoch: Time.now, phase: nil)
     if phase
       ASSOCIATIONS.key?(phase) ? @phase = phase : raise(InvalidPhase)
@@ -55,12 +72,26 @@ class Moon
     EMOJI[@phase]
   end
 
+  # Uses the moon's apparent geocentric ecliptic longitude (true equinox of date)
+  def zodiac_sign
+    return unless @epoch
+
+    @zodiac_sign ||= begin
+      instant = Astronoby::Instant.from_time(@epoch)
+      longitude = Astronoby::Moon.new(instant:, ephem: Moon.ephemeris).apparent.ecliptic.longitude.degrees
+      ZODIAC_SIGNS[(longitude % 360 / 30).floor]
+    rescue Ephem::OutOfRangeError
+      nil
+    end
+  end
+
   def to_json(*_args)
     {
       phase: @phase,
       days: @days || 0,
       emoji:,
-      association: ASSOCIATIONS[@phase]
+      association: ASSOCIATIONS[@phase],
+      zodiac_sign:
     }.to_json
   end
 

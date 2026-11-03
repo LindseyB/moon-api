@@ -20,6 +20,15 @@ describe 'MoonApi' do
       expect(body['emoji']).to eq '🌒'
       expect(body['association']).to eq 'setting intentions'
     end
+
+    it 'returns the zodiac sign the moon is currently in' do
+      # The moon crosses from Virgo into Libra around 11:40 UTC on 2008-09-01
+      Timecop.freeze(Time.utc(2008, 9, 1, 11, 0, 0)) { get '/' }
+      expect(JSON.parse(last_response.body)['zodiac_sign']).to eq 'virgo'
+
+      Timecop.freeze(Time.utc(2008, 9, 1, 13, 0, 0)) { get '/' }
+      expect(JSON.parse(last_response.body)['zodiac_sign']).to eq 'libra'
+    end
   end
 
   describe '/favicon.ico' do
@@ -43,6 +52,7 @@ describe 'MoonApi' do
       expect(body['days']).to eq 0
       expect(body['emoji']).to eq '🌑'
       expect(body['association']).to eq 'new beginnings'
+      expect(body['zodiac_sign']).to be_nil
     end
 
     it 'is case insensitive' do
@@ -90,6 +100,14 @@ describe 'MoonApi' do
       expect(body['days']).to eq 19
       expect(body['emoji']).to eq '🌖'
       expect(body['association']).to eq 'expressing gratitude'
+      expect(body['zodiac_sign']).to eq 'taurus'
+    end
+
+    it 'returns a null zodiac sign for dates outside the ephemeris range' do
+      get "/date/#{Time.utc(2101, 1, 1).to_i}"
+
+      expect(last_response).to be_ok
+      expect(JSON.parse(last_response.body)['zodiac_sign']).to be_nil
     end
 
     it 'returns a 404 for an invalid date' do
