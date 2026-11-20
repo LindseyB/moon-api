@@ -2,6 +2,8 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   NewCops: enable
+  # RuboCop 1.54 does not recognize Ruby 3.4 yet; 3.3 is the newest it supports.
+  TargetRubyVersion: 3.3
 
 Metrics:
   Enabled: false
